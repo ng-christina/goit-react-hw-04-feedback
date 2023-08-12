@@ -1,0 +1,8 @@
+.stat {
+  color: white;
+  font-size: 20px;
+}
+
+.stat:not(:last-child) {
+  margin-bottom: 10px;
+}

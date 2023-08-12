@@ -1,0 +1,34 @@
+.section {
+  width: 500px;
+  margin: 0 auto 30px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  opacity: 0;
+  animation: fade-in 4s forwards;
+  animation-timing-function: ease-out;
+}
+
+.sectionTitle {
+  font-size: 30px;
+  animation: glow .8s infinite alternate;
+  margin-bottom: 20px;
+  color: aliceblue;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 15px #1d00dd, 0 0 20px #6d34c3, 0 0 30px #684c93;
+  }
+  to {
+    text-shadow: 0 0 5px #1932c3, 0 0 10px #444b97, 0 0 15px #2871aa;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}

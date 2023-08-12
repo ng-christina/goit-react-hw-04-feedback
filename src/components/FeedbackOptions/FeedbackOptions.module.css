@@ -1,0 +1,25 @@
+.button:not(:last-child) {
+  margin-right: 15px;
+}
+.button {
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgba(75, 73, 217, 0.677);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: black;
+  background-color: rgb(107 107 196);
+  border: none;
+  transition: all 0.4s ease-in-out;
+}
+.button::first-letter {
+  text-transform: uppercase;
+}
+.button:hover {
+  background-color: #9780b9;
+  box-shadow: 0px 4px 4px rgba(169, 98, 215, 0.737);
+  color: wheat;
+  transform: scale(1.1);
+}

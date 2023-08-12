@@ -1,0 +1,21 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 25px;
+  margin-bottom: 20px;
+  color: aliceblue;
+
+  opacity: 0;
+  animation: fade-in 4s forwards;
+  animation-timing-function: ease-out;
+
+  text-shadow: 0 0 10px #1d00dd, 0 0 20px #6d34c3, 0 0 30px #684c93;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
