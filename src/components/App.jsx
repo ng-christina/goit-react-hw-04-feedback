@@ -1,68 +1,68 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Notification } from './Notification/Notification';
 import { Section } from './Section/Section';
 import { Statistics } from './Statistics/Statistics';
-import React from 'react';
 
-export default class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+const App = () => {
+  const [goodFeedback, setGoodFeedback] = useState(0);
+  const [neutralFeedback, setNeutralFeedback] = useState(0);
+  const [badFeedback, setBadFeedback] = useState(0);
+
+  const countTotalFeedback = () => {
+    return goodFeedback + neutralFeedback + badFeedback;
   };
 
-  countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
+  const feedbackPositive = () => {
+    const total = goodFeedback + badFeedback + neutralFeedback;
+    return Math.round((goodFeedback * 100) / total) || 0;
   };
 
-  countPositiveFeedbackPercentage = () => {
-    const { good, bad, neutral } = this.state;
-    const total = good + bad + neutral;
-    return Math.round((good * 100) / total) || 0;
-  };
-
+  const total = countTotalFeedback();
+  const positiveFeedback = feedbackPositive();
   // приймає параметр `option`, який представляє тип відгуку
   // передається при виклику методу і вказує, який тип відгуку був вибраний.
   // setState приймає новий стан та оновлює поточний
   // prevState попередній стан
 
-  leaveFeedback = option => {
-    this.setState(prevState => ({
-      [option]: prevState[option] + 1,
-    }));
+  const leaveFeedback = option => {
+    switch (option) {
+      case 'good':
+        setGoodFeedback(prevGood => prevGood + 1);
+        break;
+      case 'neutral':
+        setNeutralFeedback(prevNeutral => prevNeutral + 1);
+        break;
+      case 'bad':
+        setBadFeedback(prevBad => prevBad + 1);
+        break;
+      default:
+        break;
+    }
   };
+  return (
+    <>
+      <Section title="Please live feedback">
+        <FeedbackOptions
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={leaveFeedback}
+        />
+      </Section>
 
-  render() {
-    const total = this.countTotalFeedback();
-    const feedbackPositive = this.countPositiveFeedbackPercentage();
-    const { good, neutral, bad } = this.state;
-    const options = Object.keys(this.state);
-
-    return (
-      <>
-        <Section title="Please live feedback">
-          <FeedbackOptions
-            options={options}
-            onLeaveFeedback={this.leaveFeedback}
+      {total > 0 ? (
+        <Section title="Statistics">
+          <Statistics
+            good={goodFeedback}
+            neutral={neutralFeedback}
+            bad={badFeedback}
+            total={total}
+            positivePercentage={positiveFeedback}
           />
         </Section>
-
-        {total > 0 ? (
-          <Section title="Statistics">
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={total}
-              positivePercentage={feedbackPositive}
-            />
-          </Section>
-        ) : (
-          <Notification message="There is no feedback"></Notification>
-        )}
-      </>
-    );
-  }
-}
+      ) : (
+        <Notification message="There is no feedback"></Notification>
+      )}
+    </>
+  );
+};
+export default App;
